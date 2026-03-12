@@ -1,0 +1,26 @@
+AddActivity 03010630 WakeUp
+AddActivity 03010730 Breakfast
+AddActivity 03010900 Walk1
+AddActivity 03011100 Gym
+AddActivity 03011230 Lunch
+AddActivity 03011500 Stretching
+AddActivity 03011800 Dinner
+AddActivity 03012000 Breathwork
+AddActivity 03012130 Walk2
+AddActivity 03012300 Sleep
+PrintSkipList
+(S4) empty
+(S3) 03012000:Breathwork
+(S2) 03011100:Gym 03012000:Breathwork
+(S1) 03010730:Breakfast 03011100:Gym 03011500:Stretching 03012000:Breathwork 03012300:Sleep
+(S0) 03010630:WakeUp 03010730:Breakfast 03010900:Walk1 03011100:Gym 03011230:Lunch 03011500:Stretching 03011800:Dinner 03012000:Breathwork 03012130:Walk2 03012300:Sleep
+GetActivity 03011100 Gym
+RemoveActivity 03012300 Sleep
+RemoveActivity 03011500 Stretching
+AddActivity 03011400 Nap
+PrintSkipList
+(S4) empty
+(S3) 03012000:Breathwork
+(S2) 03011100:Gym 03012000:Breathwork
+(S1) 03010730:Breakfast 03011100:Gym 03012000:Breathwork
+(S0) 03010630:WakeUp 03010730:Breakfast 03010900:Walk1 03011100:Gym 03011230:Lunch 03011400:Nap 03011800:Dinner 03012000:Breathwork 03012130:Walk2

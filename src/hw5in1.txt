@@ -1,0 +1,16 @@
+AddActivity 03010630 WakeUp
+AddActivity 03010730 Breakfast
+AddActivity 03010900 Walk1
+AddActivity 03011100 Gym
+AddActivity 03011230 Lunch
+AddActivity 03011500 Stretching
+AddActivity 03011800 Dinner
+AddActivity 03012000 Breathwork
+AddActivity 03012130 Walk2
+AddActivity 03012300 Sleep
+PrintSkipList
+GetActivity 03011100
+RemoveActivity 03012300
+RemoveActivity 03011500
+AddActivity 03011400 Nap
+PrintSkipList
