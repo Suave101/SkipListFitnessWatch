@@ -12,8 +12,15 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SkipListMap {
+
     // SkipListNode Array
     private ArrayList<SkipListNode> skipListMap = new ArrayList<SkipListNode>();
+
+    // Random height generator
+    private FakeRandHeight random = new FakeRandHeight();
+
+    // Level of the top empty layer 0-indexed
+    private int topHeight = 0;
 
     // Constructor method for SkipList
     public SkipListMap() {
@@ -26,13 +33,17 @@ public class SkipListMap {
 
     // Method to add an item to the SkipListMap
     public void put(String time, String activity) {
+        // Get Random Height
+        int height = random.get();
+
+        // Ensure there is always an empty layer at top
+        ensureMaxHeight(height);
+
         // Find where the node goes
         SkipListNode nodeBefore = findRecursively(Integer.parseInt(time), skipListMap.get(skipListMap.size() - 1));
 
         // Create the Skip List Node and add it to the list
-        assert nodeBefore != null;
-
-        SkipListNode newNode = new SkipListNode(time, activity, nodeBefore, nodeBefore.getPrev(), nodeBefore.getPrev().getAbove(), null);
+        SkipListNode newNode = new SkipListNode(time, activity, nodeBefore, nodeBefore.getPrev(), null, null);
 
         nodeBefore.getPrev().setNext(newNode);
 
@@ -40,7 +51,46 @@ public class SkipListMap {
             nodeBefore.getPrev().getAbove().setBelow(newNode);
         }
 
+        // Add the node height times
+        SkipListNode curRef = newNode;
+        while (height > 0) {
+            // Create the node
+            SkipListNode newNodeAbove = new SkipListNode(time, activity, null, null, null, curRef);
+
+            // Find the node that will be to the right of the new node
+            SkipListNode newNodeNext = curRef.getNext();
+            while (newNodeNext.getAbove() == null) {
+                // Scan forward until we find a node with a node above it
+                newNodeNext = newNodeNext.getNext();
+            }
+            // Correctly set the new node next to the correct layer
+            newNodeNext = newNodeNext.getAbove();
+            SkipListNode newNodePrev = newNodeNext.getPrev();
+
+            // Set the nodes around to know the current node exists
+            newNodeNext.setPrev(newNodeAbove);
+            newNodePrev.setNext(newNodeAbove);
+            curRef.setAbove(newNodeAbove);
+
+            // Update the node
+            newNodeAbove.setNext(newNodeNext);
+            newNodeAbove.setPrev(newNodePrev);
+
+            // Update Current Reference Node
+            curRef = newNodeAbove;
+
+            // Decrement height to go
+            height--;
+        }
+
         nodeBefore.setPrev(newNode);
+    }
+
+    // Given the height of a node, ensure that there is an empty layer above its max height
+    private void ensureMaxHeight(int height) {
+        while (this.topHeight <= height) {
+            addLayer();
+        }
     }
 
     // Finds a node by time starting at cur
@@ -68,11 +118,15 @@ public class SkipListMap {
         // Get the end of the current top layer
         SkipListNode endBelow = findValueHoriz(beginningBelow, "End");
 
-        // Add first layer to skip list map
+        // Add layer to skip list map
         SkipListNode beginning = new SkipListNode("Beginning", null, null, null, null, beginningBelow);
         SkipListNode end = new SkipListNode("End", null, null, beginning, null, endBelow);
         beginning.setNext(end);
         skipListMap.add(beginning);
+        beginningBelow.setAbove(beginning);
+        endBelow.setAbove(end);
+        // Increment the top height
+        topHeight++;
     }
 
     // A method to recurse through list left to right to find item with str val
@@ -82,7 +136,7 @@ public class SkipListMap {
         } else if (Objects.equals(beginning.getTime(), "End")) {
             return null;
         } else {
-            return beginning.getNext();
+            return findValueHoriz(beginning.getNext(), value);
         }
     }
 
