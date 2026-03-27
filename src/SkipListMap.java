@@ -117,6 +117,35 @@ public class SkipListMap {
         return true;
     }
 
+    // Method to subMap the map
+    public ArrayList<SkipListNode> subMap(String startTime, String endTime) {
+        // Create an array to store the sub mapped items
+        ArrayList<SkipListNode> array = new ArrayList<SkipListNode>();
+
+        // Find the first node
+        SkipListNode cur = get(startTime);
+
+        // Check if we found it
+        if (cur == null) {
+            return null;
+        }
+
+        // Iterate till we find the end time
+        while (!Objects.equals(cur.getTime(), endTime)) {
+            // Add item
+            array.add(cur);
+
+            // Iterate
+            cur = cur.getNext();
+
+            // Check if we are at the end of the list
+            if (cur == null) {
+                return null;
+            }
+        }
+        return array;
+    }
+
     // Helper method to remove a tower recursively
     private void collapseTower(SkipListNode node) {
         // Get nodes neighbors
