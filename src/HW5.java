@@ -15,7 +15,6 @@ public class HW5
     /*
       Description of each method, including parameters 
     */
-    // TODO: Call garbage collector if running out of space
     public static void main(String[] args) {
 	/* description of variables */
 
