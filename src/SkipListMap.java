@@ -33,57 +33,50 @@ public class SkipListMap {
 
     // Method to add an item to the SkipListMap
     public void put(String time, String activity) {
+        int t = Integer.parseInt(time);
+
         // Get Random Height
         int height = random.get();
 
         // Ensure there is always an empty layer at top
         ensureMaxHeight(height);
 
-        // Find where the node goes
-        SkipListNode nodeBefore = findRecursively(Integer.parseInt(time), skipListMap.get(skipListMap.size() - 1));
+        // Find the first node with key >= time on the bottom layer (nodeAfter)
+        SkipListNode nodeAfter = findRecursively(t, skipListMap.get(skipListMap.size() - 1));
+        SkipListNode nodeBefore = nodeAfter.getPrev();
 
-        // Create the Skip List Node and add it to the list
-        SkipListNode newNode = new SkipListNode(time, activity, nodeBefore, nodeBefore.getPrev(), null, null);
+        // Insert at bottom level between nodeBefore and nodeAfter
+        SkipListNode newNode = new SkipListNode(time, activity, nodeAfter, nodeBefore, null, null);
+        nodeBefore.setNext(newNode);
+        nodeAfter.setPrev(newNode);
 
-        nodeBefore.getPrev().setNext(newNode);
-
-        if (nodeBefore.getPrev().getAbove() != null) {
-            nodeBefore.getPrev().getAbove().setBelow(newNode);
-        }
-
-        // Add the node height times
-        SkipListNode curRef = newNode;
+        // Build tower upwards
+        SkipListNode belowRef = newNode;
         while (height > 0) {
-            // Create the node
-            SkipListNode newNodeAbove = new SkipListNode(time, activity, null, null, null, curRef);
-
-            // Find the node that will be to the right of the new node
-            SkipListNode newNodeNext = curRef.getNext();
-            while (newNodeNext.getAbove() == null) {
-                // Scan forward until we find a node with a node above it
-                newNodeNext = newNodeNext.getNext();
+            // move left until we find a node that has an above pointer
+            SkipListNode left = nodeBefore;
+            while (left != null && left.getAbove() == null) {
+                left = left.getPrev();
             }
-            // Correctly set the new node next to the correct layer
-            newNodeNext = newNodeNext.getAbove();
-            SkipListNode newNodePrev = newNodeNext.getPrev();
 
-            // Set the nodes around to know the current node exists
-            newNodeNext.setPrev(newNodeAbove);
-            newNodePrev.setNext(newNodeAbove);
-            curRef.setAbove(newNodeAbove);
+            // left should never be null because the "Beginning" sentinel has above pointers
+            SkipListNode leftAbove = left.getAbove();
+            SkipListNode rightAbove = leftAbove.getNext();
 
-            // Update the node
-            newNodeAbove.setNext(newNodeNext);
-            newNodeAbove.setPrev(newNodePrev);
+            SkipListNode newAbove = new SkipListNode(time, activity, rightAbove, leftAbove, null, belowRef);
 
-            // Update Current Reference Node
-            curRef = newNodeAbove;
+            // Link horizontally
+            leftAbove.setNext(newAbove);
+            rightAbove.setPrev(newAbove);
 
-            // Decrement height to go
+            // Link vertically
+            belowRef.setAbove(newAbove);
+
+            // Move up
+            belowRef = newAbove;
+            nodeBefore = leftAbove;
             height--;
         }
-
-        nodeBefore.setPrev(newNode);
     }
 
     // Given the height of a node, ensure that there is an empty layer above its max height
@@ -142,9 +135,6 @@ public class SkipListMap {
 
     // A SkipList Node
     private class SkipListNode {
-        // If the node is a head node
-        private boolean isHead;
-
         // The nodes around the node
         private SkipListNode next;
         private SkipListNode prev;
