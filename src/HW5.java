@@ -16,7 +16,7 @@ public class HW5
       Description of each method, including parameters 
     */
     public static void main(String[] args) {
-	/* description of variables */
+        /* description of variables */
 
 	/* description of each block (around 5-10 lines) of instructions */
     }

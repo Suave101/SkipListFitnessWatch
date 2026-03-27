@@ -79,6 +79,86 @@ public class SkipListMap {
         }
     }
 
+    // Method to get an item by key from the SkipListMap
+    public SkipListNode get(String time) {
+        int key = Integer.parseInt(time);
+
+        // Find node recursively
+        SkipListNode node = findRecursively(key, skipListMap.get(skipListMap.size() - 1));
+
+        // Check if node was found
+        if (node.intTime == key) {
+            return node;
+        } else {
+            return null;
+        }
+    }
+
+    // Method to remove an item by key from the SkipListMap
+    public boolean remove(String time) {
+        // Convert time to int
+        int key = Integer.parseInt(time);
+
+        // Get top of stack we are looking for
+        SkipListNode top = findTop(key, skipListMap.get(skipListMap.size() - 1));
+
+        // Check if the node exists
+        if (top == null) {
+            return false;
+        }
+
+        // Recursively remove the tower
+        collapseTower(top);
+
+        // Call the garbage collector because we could have deleted a lot of stuff
+        Runtime.getRuntime().gc();
+
+        // Return that we found and deleted the item well
+        return true;
+    }
+
+    // Helper method to remove a tower recursively
+    private void collapseTower(SkipListNode node) {
+        // Get nodes neighbors
+        SkipListNode leftOfNode = node.getPrev();
+        SkipListNode rightOfNode = node.getNext();
+        SkipListNode bottomOfNode = node.getBelow();
+
+        // Make neighbors forget node exists
+        leftOfNode.setNext(rightOfNode);
+        rightOfNode.setPrev(leftOfNode);
+
+        // If bottom neighbor exists, recurse
+        if (bottomOfNode != null) {
+            bottomOfNode.setAbove(null);
+            collapseTower(bottomOfNode);
+        }
+    }
+
+    // Helper method to find the top of a tower
+    private SkipListNode findTop(int time, SkipListNode cur) {
+        // Check if this is the top
+        if (cur.getIntTime() == time) {
+            // If so, return it
+            return cur;
+        }
+
+        // If cur is less than time, proceed to next unless it is the beginning or end
+        if (cur.getIntTime() < time) {
+            // Scan Forward
+            return findRecursively(time, cur.getNext());
+        } else {
+            // Drop Down
+            if (cur.getBelow() == null) {
+                // Not found
+                return null;
+            } else {
+                // Drop down
+                return findRecursively(time, cur.getBelow());
+            }
+        }
+    }
+
     // Given the height of a node, ensure that there is an empty layer above its max height
     private void ensureMaxHeight(int height) {
         while (this.topHeight <= height) {
