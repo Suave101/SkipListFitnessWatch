@@ -135,30 +135,18 @@ public class SkipListMap {
 
     // Method to subMap the map
     public ArrayList<SkipListNode> subMap(String startTime, String endTime) {
-        // Create an array to store the sub mapped items
-        ArrayList<SkipListNode> array = new ArrayList<SkipListNode>();
+        ArrayList<SkipListNode> array = new ArrayList<>();
+        int end = Integer.parseInt(endTime);
 
-        // Find the first node
+        // findRecursively already brilliantly finds the first node >= startTime
         SkipListNode cur = findRecursively(Integer.parseInt(startTime), skipListMap.get(skipListMap.size() - 1));
 
-        // Iterate till we find the end time
-        while (!Objects.equals(cur.getTime(), endTime)) {
-            // Add item
+        // Keep going till end or number
+        while (cur != null && !cur.getTime().equals("End") && cur.getIntTime() <= end) {
             array.add(cur);
-
-            // Iterate
             cur = cur.getNext();
-
-            // Check if we are at the end of the list
-            if (cur == null) {
-                return null;
-            }
         }
 
-        // Add the end time
-        array.add(cur);
-
-        // Return the array
         return array;
     }
 
