@@ -31,24 +31,46 @@ public class SkipListMap {
         skipListMap.add(beginning);
     }
 
-    // Method to add an item to the SkipListMap
-    public void put(String time, String activity) {
-        int t = Integer.parseInt(time);
+    // Method to print the array
+    public void print() {
+        int curLayer = skipListMap.size() - 1;
+        for (SkipListNode node: skipListMap) {
+            System.out.print("(s" + curLayer + ")");
+            SkipListNode cur = node;
+            while (!cur.getNext().getTime().equals("End")) {
+                System.out.print(" " + cur.getTime() + ":" + cur.getActivity());
+                if (cur.getNext().getTime().equals("End")) {
+                    break;
+                }
+            }
+            System.out.println();
+            curLayer--;
+        }
+    }
 
-        // Get Random Height
-        int height = random.get();
-
-        // Ensure there is always an empty layer at top
-        ensureMaxHeight(height);
-
+    // Method to add an item to the SkipListMap. Returns false if time already exists
+    public boolean put(String time, String activity) {
         // Find the first node with key >= time on the bottom layer (nodeAfter)
-        SkipListNode nodeAfter = findRecursively(t, skipListMap.get(skipListMap.size() - 1));
+        SkipListNode nodeAfter = findRecursively(Integer.parseInt(time), skipListMap.get(skipListMap.size() - 1));
+
+        // Ensure that the element does not exist already
+        if (nodeAfter.getTime().equals(time)) {
+            return false;
+        }
+
+        // Get the node before the node after where the new node will be
         SkipListNode nodeBefore = nodeAfter.getPrev();
 
         // Insert at bottom level between nodeBefore and nodeAfter
         SkipListNode newNode = new SkipListNode(time, activity, nodeAfter, nodeBefore, null, null);
         nodeBefore.setNext(newNode);
         nodeAfter.setPrev(newNode);
+
+        // Get Random Height
+        int height = random.get();
+
+        // Ensure there is always an empty layer at top
+        ensureMaxHeight(height);
 
         // Build tower upwards
         SkipListNode belowRef = newNode;
@@ -77,6 +99,7 @@ public class SkipListMap {
             nodeBefore = leftAbove;
             height--;
         }
+        return true;
     }
 
     // Method to get an item by key from the SkipListMap
@@ -96,11 +119,8 @@ public class SkipListMap {
 
     // Method to remove an item by key from the SkipListMap
     public boolean remove(String time) {
-        // Convert time to int
-        int key = Integer.parseInt(time);
-
         // Get top of stack we are looking for
-        SkipListNode top = findTop(key, skipListMap.get(skipListMap.size() - 1));
+        SkipListNode top = findTop(Integer.parseInt(time), skipListMap.get(skipListMap.size() - 1));
 
         // Check if the node exists
         if (top == null) {
@@ -109,9 +129,6 @@ public class SkipListMap {
 
         // Recursively remove the tower
         collapseTower(top);
-
-        // Call the garbage collector because we could have deleted a lot of stuff
-        Runtime.getRuntime().gc();
 
         // Return that we found and deleted the item well
         return true;
@@ -123,12 +140,7 @@ public class SkipListMap {
         ArrayList<SkipListNode> array = new ArrayList<SkipListNode>();
 
         // Find the first node
-        SkipListNode cur = get(startTime);
-
-        // Check if we found it
-        if (cur == null) {
-            return null;
-        }
+        SkipListNode cur = findRecursively(Integer.parseInt(startTime), skipListMap.get(skipListMap.size() - 1));
 
         // Iterate till we find the end time
         while (!Objects.equals(cur.getTime(), endTime)) {
@@ -143,6 +155,11 @@ public class SkipListMap {
                 return null;
             }
         }
+
+        // Add the end time
+        array.add(cur);
+
+        // Return the array
         return array;
     }
 
@@ -175,7 +192,7 @@ public class SkipListMap {
         // If cur is less than time, proceed to next unless it is the beginning or end
         if (cur.getIntTime() < time) {
             // Scan Forward
-            return findRecursively(time, cur.getNext());
+            return findTop(time, cur.getNext());
         } else {
             // Drop Down
             if (cur.getBelow() == null) {
@@ -183,7 +200,7 @@ public class SkipListMap {
                 return null;
             } else {
                 // Drop down
-                return findRecursively(time, cur.getBelow());
+                return findTop(time, cur.getBelow());
             }
         }
     }
