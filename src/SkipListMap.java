@@ -34,14 +34,13 @@ public class SkipListMap {
     // Method to print the array
     public void print() {
         int curLayer = skipListMap.size() - 1;
-        for (SkipListNode node: skipListMap) {
-            System.out.print("(s" + curLayer + ")");
-            SkipListNode cur = node;
-            while (!cur.getNext().getTime().equals("End")) {
+        // Iterate backwards through the arraylist so top layer prints first
+        for (int i = skipListMap.size() - 1; i >= 0; i--) {
+            System.out.print("(S" + curLayer + ")");
+            SkipListNode cur = skipListMap.get(i).getNext();
+            while (!cur.getTime().equals("End")) {
                 System.out.print(" " + cur.getTime() + ":" + cur.getActivity());
-                if (cur.getNext().getTime().equals("End")) {
-                    break;
-                }
+                cur = cur.getNext();
             }
             System.out.println();
             curLayer--;
