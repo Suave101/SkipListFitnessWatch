@@ -86,7 +86,14 @@ public class HW5
     /*
      * Method that removes an activity by time
      */
-    public static void removeActivity(String time, SkipListMap skipListMap) {}
+    public static void removeActivity(String time, SkipListMap skipListMap) {
+        String removedActivity = skipListMap.remove(time);
+        if (removedActivity == null) {
+            System.out.println("RemoveActivity " + time + " NoActivityError");
+        } else {
+            System.out.println("RemoveActivity " + time + " " + removedActivity);
+        }
+    }
 
     /*
      * Method that gets an activity by time

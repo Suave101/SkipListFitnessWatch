@@ -118,20 +118,20 @@ public class SkipListMap {
     }
 
     // Method to remove an item by key from the SkipListMap
-    public boolean remove(String time) {
+    public String remove(String time) {
         // Get top of stack we are looking for
         SkipListNode top = findTop(Integer.parseInt(time), skipListMap.get(skipListMap.size() - 1));
 
         // Check if the node exists
         if (top == null) {
-            return false;
+            return null;
         }
 
         // Recursively remove the tower
         collapseTower(top);
 
         // Return that we found and deleted the item well
-        return true;
+        return top.getActivity();
     }
 
     // Method to subMap the map
