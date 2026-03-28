@@ -135,8 +135,8 @@ public class SkipListMap {
     }
 
     // Method to subMap the map
-    public ArrayList<SkipListNode> subMap(String startTime, String endTime) {
-        ArrayList<SkipListNode> array = new ArrayList<>();
+    public String subMap(String startTime, String endTime) {
+        StringBuilder sb = new StringBuilder();
         int end = Integer.parseInt(endTime);
 
         // findRecursively already brilliantly finds the first node >= startTime
@@ -144,11 +144,11 @@ public class SkipListMap {
 
         // Keep going till end or number
         while (cur != null && !cur.getTime().equals("End") && cur.getIntTime() <= end) {
-            array.add(cur);
+            sb.append(" ").append(cur.getTime()).append(":").append(cur.getActivity());
             cur = cur.getNext();
         }
 
-        return array;
+        return sb.toString();
     }
 
     // Helper method to remove a tower recursively

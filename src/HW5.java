@@ -11,6 +11,7 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class HW5
@@ -110,12 +111,28 @@ public class HW5
     /*
      * Method that gets the activities between the two given times (inclusive)
      */
-    public static void getActivitiesBetweenTimes(String startTime, String endTime, SkipListMap skipListMap) {}
+    public static void getActivitiesBetweenTimes(String startTime, String endTime, SkipListMap skipListMap) {
+        String subMapReturn = skipListMap.subMap(startTime, endTime);
+        if (Objects.equals(subMapReturn, "")) {
+            System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + " none");
+        } else {
+            System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + " " + subMapReturn);
+        }
+    }
 
     /*
      * Method that gets the activities for a specific day
      */
-    public static void getActivitiesForOneDay(String date, SkipListMap skipListMap) {}
+    public static void getActivitiesForOneDay(String date, SkipListMap skipListMap) {
+        // For simplicity, time is an integer in MMDDHHmm format and date is in MMDD format (MM is 01-12, DD is 01-31, HH is
+        //00-23, mm is 00-59)
+        String subMapReturn = skipListMap.subMap(startTime, endTime);
+        if (Objects.equals(subMapReturn, "")) {
+            System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + " none");
+        } else {
+            System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + " " + subMapReturn);
+        }
+    }
 
     /*
      * Method that gets the activities from the beginning of a day to the given time
