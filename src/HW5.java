@@ -139,7 +139,14 @@ public class HW5
      */
     public static void getActivitiesFromEarlierInTheDay(String currentTime, SkipListMap skipListMap) {
         // .substring(0, 4)
-
+        String date = currentTime.substring(0, 4);
+        String startTime = date + "0000";
+        String subMapReturn = skipListMap.subMap(startTime, currentTime);
+        if (Objects.equals(subMapReturn, "")) {
+            System.out.println("GetActivitiesFromEarlierInTheDay " + startTime + " " + currentTime + " none");
+        } else {
+            System.out.println("GetActivitiesFromEarlierInTheDay " + startTime + " " + currentTime + " " + subMapReturn);
+        }
     }
 
     /*
