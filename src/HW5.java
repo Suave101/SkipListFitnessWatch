@@ -22,7 +22,7 @@ public class HW5
     */
     public static void main(String[] args) throws FileNotFoundException {
 //        parseAndHandleCommands(skipList, args[0]);
-        parseAndHandleCommands("hw5in1.txt");
+        parseAndHandleCommands("hw5in2.txt");
     }
 
     public static void parseAndHandleCommands(String fileName) throws FileNotFoundException {
@@ -138,7 +138,6 @@ public class HW5
      * Method that gets the activities from the beginning of a day to the given time
      */
     public static void getActivitiesFromEarlierInTheDay(String currentTime, SkipListMap skipListMap) {
-        // .substring(0, 4)
         String date = currentTime.substring(0, 4);
         String startTime = date + "0000";
         String subMapReturn = skipListMap.subMap(startTime, currentTime);

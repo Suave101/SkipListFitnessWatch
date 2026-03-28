@@ -50,16 +50,18 @@ public class SkipListMap {
 
     // Method to add an item to the SkipListMap. Returns false if time already exists
     public boolean put(String time, String activity) {
-        // Find the first node with key >= time on the bottom layer (nodeAfter)
-        SkipListNode nodeAfter = findRecursively(Integer.parseInt(time), skipListMap.get(skipListMap.size() - 1));
+        int t = Integer.parseInt(time);
+
+        // Find the node where this time should go
+        SkipListNode nodeBefore = findNode(t);
 
         // Ensure that the element does not exist already
-        if (nodeAfter.getTime().equals(time)) {
+        if (nodeBefore != null && nodeBefore.getIntTime() == t) {
             return false;
         }
 
-        // Get the node before the node after where the new node will be
-        SkipListNode nodeBefore = nodeAfter.getPrev();
+        // Get the node after where the new node will be
+        SkipListNode nodeAfter = nodeBefore.getNext();
 
         // Insert at bottom level between nodeBefore and nodeAfter
         SkipListNode newNode = new SkipListNode(time, activity, nodeAfter, nodeBefore, null, null);
@@ -106,11 +108,11 @@ public class SkipListMap {
     public String get(String time) {
         int key = Integer.parseInt(time);
 
-        // Find node recursively
-        SkipListNode node = findRecursively(key, skipListMap.get(skipListMap.size() - 1));
+        // Find node iteratively
+        SkipListNode node = findNode(key);
 
         // Check if node was found
-        if (node.intTime == key) {
+        if (node != null && node.getIntTime() == key) {
             return node.getActivity();
         } else {
             return null;
@@ -119,30 +121,40 @@ public class SkipListMap {
 
     // Method to remove an item by key from the SkipListMap
     public String remove(String time) {
-        // Get top of stack we are looking for
-        SkipListNode top = findTop(Integer.parseInt(time), skipListMap.get(skipListMap.size() - 1));
+        int key = Integer.parseInt(time);
+
+        // Get the bottom node of the stack we are looking for
+        SkipListNode bottomNode = findNode(key);
 
         // Check if the node exists
-        if (top == null) {
+        if (bottomNode == null || bottomNode.getIntTime() != key) {
             return null;
         }
 
-        // Recursively remove the tower
-        collapseTower(top);
+        String activity = bottomNode.getActivity();
 
-        // Return that we found and deleted the item well
-        return top.getActivity();
+        // Recursively remove the tower from the bottom up
+        collapseTower(bottomNode);
+
+        // Return the activity we deleted
+        return activity;
     }
 
     // Method to subMap the map
     public String subMap(String startTime, String endTime) {
         StringBuilder sb = new StringBuilder();
+        int start = Integer.parseInt(startTime);
         int end = Integer.parseInt(endTime);
 
-        // findRecursively already brilliantly finds the first node >= startTime
-        SkipListNode cur = findRecursively(Integer.parseInt(startTime), skipListMap.get(skipListMap.size() - 1));
+        // findNode gracefully finds the node <= startTime
+        SkipListNode cur = findNode(start);
 
-        // Keep going till end or number
+        // If the exact start time doesn't exist, shift forward to the next available time
+        if (cur != null && cur.getIntTime() < start) {
+            cur = cur.getNext();
+        }
+
+        // Keep going till end of our range
         while (cur != null && !cur.getTime().equals("End") && cur.getIntTime() <= end) {
             sb.append(" ").append(cur.getTime()).append(":").append(cur.getActivity());
             cur = cur.getNext();
@@ -151,69 +163,44 @@ public class SkipListMap {
         return sb.toString();
     }
 
-    // Helper method to remove a tower recursively
+    // Helper method to remove a tower recursively from bottom to top
     private void collapseTower(SkipListNode node) {
         // Get nodes neighbors
         SkipListNode leftOfNode = node.getPrev();
         SkipListNode rightOfNode = node.getNext();
-        SkipListNode bottomOfNode = node.getBelow();
+        SkipListNode topOfNode = node.getAbove();
 
-        // Make neighbors forget node exists
+        // Make horizontal neighbors forget node exists
         leftOfNode.setNext(rightOfNode);
         rightOfNode.setPrev(leftOfNode);
 
-        // If bottom neighbor exists, recurse
-        if (bottomOfNode != null) {
-            bottomOfNode.setAbove(null);
-            collapseTower(bottomOfNode);
+        // If top neighbor exists, recurse upwards
+        if (topOfNode != null) {
+            collapseTower(topOfNode);
         }
     }
 
-    // Helper method to find the top of a tower
-    private SkipListNode findTop(int time, SkipListNode cur) {
-        // Check if this is the top
-        if (cur.getIntTime() == time) {
-            // If so, return it
-            return cur;
-        }
-
-        // If cur is less than time, proceed to next unless it is the beginning or end
-        if (cur.getIntTime() < time) {
-            // Scan Forward
-            return findTop(time, cur.getNext());
-        } else {
-            // Drop Down
-            if (cur.getBelow() == null) {
-                // Not found
-                return null;
+    private SkipListNode findNode(int time) {
+        SkipListNode cur = skipListMap.get(skipListMap.size() - 1);
+        while (cur != null) {
+            // Look ahead
+            if (cur.getNext() != null && cur.getNext().getIntTime() <= time) {
+                cur = cur.getNext();
             } else {
-                // Drop down
-                return findTop(time, cur.getBelow());
+                // Otherwise drop down
+                if (cur.getBelow() == null) {
+                    return cur; // Bottom reached
+                }
+                cur = cur.getBelow();
             }
         }
+        return cur;
     }
 
     // Given the height of a node, ensure that there is an empty layer above its max height
     private void ensureMaxHeight(int height) {
         while (this.topHeight <= height) {
             addLayer();
-        }
-    }
-
-    // Finds a node by time starting at cur
-    private SkipListNode findRecursively(int time, SkipListNode cur) {
-        // If cur is less than time, proceed to next unless it is the beginning or end
-        if (cur.getIntTime() < time) {
-            // Scan Forward
-            return findRecursively(time, cur.getNext());
-        } else {
-            // Drop Down
-            // Recurse to the lowest level of this node if greater than or equal to time
-            if (cur.getBelow() == null) {
-                return cur;
-            } else {
-                return findRecursively(time, cur.getBelow());
-            }
         }
     }
 
