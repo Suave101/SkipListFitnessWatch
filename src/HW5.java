@@ -124,20 +124,23 @@ public class HW5
      * Method that gets the activities for a specific day
      */
     public static void getActivitiesForOneDay(String date, SkipListMap skipListMap) {
-        // For simplicity, time is an integer in MMDDHHmm format and date is in MMDD format (MM is 01-12, DD is 01-31, HH is
-        //00-23, mm is 00-59)
+        String startTime = date + "0000";
+        String endTime = date + "2359";
         String subMapReturn = skipListMap.subMap(startTime, endTime);
         if (Objects.equals(subMapReturn, "")) {
-            System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + " none");
+            System.out.println("GetActivitiesForOneDay " + startTime + " " + endTime + " none");
         } else {
-            System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + " " + subMapReturn);
+            System.out.println("GetActivitiesForOneDay " + startTime + " " + endTime + " " + subMapReturn);
         }
     }
 
     /*
      * Method that gets the activities from the beginning of a day to the given time
      */
-    public static void getActivitiesFromEarlierInTheDay(String currentTime, SkipListMap skipListMap) {}
+    public static void getActivitiesFromEarlierInTheDay(String currentTime, SkipListMap skipListMap) {
+        // .substring(0, 4)
+
+    }
 
     /*
      * Method that prints the skip list
