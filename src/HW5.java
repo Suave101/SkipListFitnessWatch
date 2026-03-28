@@ -98,7 +98,14 @@ public class HW5
     /*
      * Method that gets an activity by time
      */
-    public static void getActivity(String time, SkipListMap skipListMap) {}
+    public static void getActivity(String time, SkipListMap skipListMap) {
+        String gottenActivity = skipListMap.get(time);
+        if (gottenActivity == null) {
+            System.out.println("GetActivity " + time + " none");
+        } else {
+            System.out.println("GetActivity " + time + " " + gottenActivity);
+        }
+    }
 
     /*
      * Method that gets the activities between the two given times (inclusive)

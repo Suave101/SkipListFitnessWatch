@@ -103,7 +103,7 @@ public class SkipListMap {
     }
 
     // Method to get an item by key from the SkipListMap
-    public SkipListNode get(String time) {
+    public String get(String time) {
         int key = Integer.parseInt(time);
 
         // Find node recursively
@@ -111,7 +111,7 @@ public class SkipListMap {
 
         // Check if node was found
         if (node.intTime == key) {
-            return node;
+            return node.getActivity();
         } else {
             return null;
         }
