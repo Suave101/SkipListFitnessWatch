@@ -115,7 +115,7 @@ public class HW5
         if (Objects.equals(subMapReturn, "")) {
             System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + " none");
         } else {
-            System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + " " + subMapReturn);
+            System.out.println("GetActivitiesBetweenTimes " + startTime + " " + endTime + subMapReturn);
         }
     }
 
@@ -127,9 +127,9 @@ public class HW5
         String endTime = date + "2359";
         String subMapReturn = skipListMap.subMap(startTime, endTime);
         if (Objects.equals(subMapReturn, "")) {
-            System.out.println("GetActivitiesForOneDay " + startTime + " " + endTime + " none");
+            System.out.println("GetActivitiesForOneDay " + date + " none");
         } else {
-            System.out.println("GetActivitiesForOneDay " + startTime + " " + endTime + " " + subMapReturn);
+            System.out.println("GetActivitiesForOneDay " + date + subMapReturn);
         }
     }
 
@@ -140,10 +140,10 @@ public class HW5
         String date = currentTime.substring(0, 4);
         String startTime = date + "0000";
         String subMapReturn = skipListMap.subMap(startTime, currentTime);
-        if (Objects.equals(subMapReturn, "")) {
-            System.out.println("GetActivitiesFromEarlierInTheDay " + startTime + " " + currentTime + " none");
+        if (subMapReturn.isEmpty()) {
+            System.out.println("GetActivitiesFromEarlierInTheDay " + currentTime + " none");
         } else {
-            System.out.println("GetActivitiesFromEarlierInTheDay " + startTime + " " + currentTime + " " + subMapReturn);
+            System.out.println("GetActivitiesFromEarlierInTheDay " + currentTime + " " + subMapReturn.trim());
         }
     }
 
