@@ -21,8 +21,7 @@ public class HW5
       Description of each method, including parameters 
     */
     public static void main(String[] args) throws FileNotFoundException {
-//        parseAndHandleCommands(skipList, args[0]);
-        parseAndHandleCommands("hw5in2.txt");
+        parseAndHandleCommands(args[0]);
     }
 
     public static void parseAndHandleCommands(String fileName) throws FileNotFoundException {
