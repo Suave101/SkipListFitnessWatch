@@ -29,33 +29,46 @@ public class SkipListMap {
 
     public boolean put(String time, String activity, int height) {
         int t = Integer.parseInt(time);
+
+        // Ensure the skip list has enough layers for the new tower height
+        while (skipListMap.size() <= height) {
+            addLayer();
+        }
+
+        // Search from the TOP layer to find the insertion path
         ArrayList<SkipListNode> path = new ArrayList<>();
-
-        // Ensure layers exist
-        while (skipListMap.size() <= height + 1) addLayer();
-
-        // Search and record path
         SkipListNode cur = skipListMap.get(skipListMap.size() - 1);
+
         while (cur != null) {
-            while (cur.getNext() != null && cur.getNext().getIntTime() < t) {
+            while (cur.getNext() != null && !cur.getNext().getTime().equals("End")
+                    && cur.getNext().getIntTime() < t) {
                 cur = cur.getNext();
             }
-            path.add(0, cur); // index 0 is S0, index 1 is S1...
+            path.add(cur); // Store the node to the LEFT of where the new node goes
             cur = cur.getBelow();
         }
 
-        // Duplicate check
-        SkipListNode possibleMatch = path.get(0).getNext();
-        if (possibleMatch != null && possibleMatch.getIntTime() == t) return false;
+        SkipListNode atS0 = path.get(path.size() - 1);
+        if (atS0.getNext() != null && atS0.getNext().getIntTime() == t) {
+            return false;
+        }
 
         // Build tower
         SkipListNode belowNode = null;
         for (int i = 0; i <= height; i++) {
-            SkipListNode left = path.get(i);
+            // Since path was built Top->Down, we get S0 by looking at the end of the list
+            SkipListNode left = path.get(path.size() - 1 - i);
+
             SkipListNode newNode = new SkipListNode(time, activity, left.getNext(), left, null, belowNode);
+
+            // Link horizontally
             left.getNext().setPrev(newNode);
             left.setNext(newNode);
-            if (belowNode != null) belowNode.setAbove(newNode);
+
+            // Link vertically
+            if (belowNode != null) {
+                belowNode.setAbove(newNode);
+            }
             belowNode = newNode;
         }
         return true;
@@ -78,13 +91,16 @@ public class SkipListMap {
         }
     }
 
-    // ... [get, remove, and subMap remain largely as you had them, utilizing findNode] ...
     private SkipListNode findNode(int time) {
+        // Start at the top-left
         SkipListNode cur = skipListMap.get(skipListMap.size() - 1);
         while (cur != null) {
-            while (cur.getNext() != null && cur.getNext().getIntTime() <= time) {
+            // Move right as far as possible without overshooting the time
+            while (cur.getNext() != null && !cur.getNext().getTime().equals("End")
+                    && cur.getNext().getIntTime() <= time) {
                 cur = cur.getNext();
             }
+            // If we can't go down anymore, we've found the closest node in S0
             if (cur.getBelow() == null) return cur;
             cur = cur.getBelow();
         }
@@ -121,7 +137,6 @@ public class SkipListMap {
         return sb.toString();
     }
 
-    // ... [Your SkipListNode inner class remains the same] ...
     private class SkipListNode {
         private SkipListNode next, prev, above, below;
         private String time, activity;
