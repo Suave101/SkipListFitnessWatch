@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class SkipListMap {
     private ArrayList<SkipListNode> skipListMap = new ArrayList<>();
-    private int topHeight = 0;
 
     public SkipListMap() {
         addLayer(); // Adds S0 with sentinels
