@@ -77,7 +77,7 @@ public class HW5
      */
     public static void addActivity(String time, String activity, SkipListMap skipListMap) {
         if (!skipListMap.put(time, activity)) {
-            System.out.println("AddActivity " + time + " " + activity + " ExistingActivityError:" + activity);
+            System.out.println("AddActivity " + time + " " + activity + " ExistingActivityError:"+ skipListMap.get(time));
         } else {
             System.out.println("AddActivity " + time + " " + activity);
         }
