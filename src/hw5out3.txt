@@ -2,7 +2,7 @@ AddActivity 03010800 Cycling
 AddActivity 03011000 Running
 AddActivity 03011200 Yoga
 AddActivity 03011400 Swimming
-AddActivity 03011400 Weights ExistingActivityError:Weights
+AddActivity 03011400 Weights ExistingActivityError:Swimming
 GetActivity 03011200 Yoga
 RemoveActivity 03011000 Running
 AddActivity 01010000 NewYearRun
