@@ -50,6 +50,9 @@ public class SkipListMap {
 
     // Method to add an item to the SkipListMap. Returns false if time already exists
     public boolean put(String time, String activity) {
+        // Get Random Height
+        int height = random.get();
+
         int t = Integer.parseInt(time);
 
         // Find the node where this time should go
@@ -67,9 +70,6 @@ public class SkipListMap {
         SkipListNode newNode = new SkipListNode(time, activity, nodeAfter, nodeBefore, null, null);
         nodeBefore.setNext(newNode);
         nodeAfter.setPrev(newNode);
-
-        // Get Random Height
-        int height = random.get();
 
         // Ensure there is always an empty layer at top
         ensureMaxHeight(height);
