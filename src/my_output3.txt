@@ -1,0 +1,45 @@
+AddActivity 03010800 Cycling
+AddActivity 03011000 Running
+AddActivity 03011200 Yoga
+AddActivity 03011400 Swimming
+AddActivity 03011400 Weights ExistingActivityError:Weights
+GetActivity 03011200 Yoga
+RemoveActivity 03011000 Running
+AddActivity 01010000 NewYearRun
+AddActivity 01011200 Walk
+AddActivity 02010800 IndoorBike
+AddActivity 02141800 ValentinesDance
+AddActivity 03010700 MorningMila
+AddActivity 03010900 BreakfastWalk
+AddActivity 03151200 SpringHike
+AddActivity 03312359 LateNightGym
+AddActivity 04010600 AprilFoolsJog
+AddActivity 05011000 MayDayStretch
+AddActivity 06010800 SummerSprints
+AddActivity 07041200 FireworkHike
+AddActivity 08010900 HeatWaveSwim
+AddActivity 10312000 HalloweenWalk
+AddActivity 11251400 TurkeyTrot
+AddActivity 12250800 XmasStroll
+AddActivity 03050700 Hike
+AddActivity 03050930 Dive
+AddActivity 03040630 WarmupJog
+AddActivity 03040715 SprintDrills
+AddActivity 03031230 Rowing
+AddActivity 03031830 Yoga
+AddActivity 03021200 Basketball
+AddActivity 03061200 Recovery
+AddActivity 03071200 Core
+AddActivity 03081200 Pilates
+GetActivitiesBetweenTimes 03010000 03312359 03010700:MorningMila 03010800:Cycling 03010900:BreakfastWalk 03011200:Yoga 03011400:Swimming 03021200:Basketball 03031230:Rowing 03031830:Yoga 03040630:WarmupJog 03040715:SprintDrills 03050700:Hike 03050930:Dive 03061200:Recovery 03071200:Core 03081200:Pilates 03151200:SpringHike 03312359:LateNightGym
+GetActivitiesForOneDay 0101 01010000:NewYearRun 01011200:Walk
+GetActivitiesForOneDay 0302 03021200:Basketball
+GetActivitiesFromEarlierInTheDay 02142000 02141800:ValentinesDance
+GetActivitiesFromEarlierInTheDay 03051200 03050700:Hike 03050930:Dive
+PrintSkipList
+(S5) empty
+(S4) 07041200:FireworkHike
+(S3) 02141800:ValentinesDance 03040715:SprintDrills 07041200:FireworkHike
+(S2) 02141800:ValentinesDance 03011400:Swimming 03040715:SprintDrills 03061200:Recovery 03312359:LateNightGym 07041200:FireworkHike 12250800:XmasStroll
+(S1) 01011200:Walk 02141800:ValentinesDance 03010900:BreakfastWalk 03011400:Swimming 03031830:Yoga 03040715:SprintDrills 03050930:Dive 03061200:Recovery 03081200:Pilates 03312359:LateNightGym 05011000:MayDayStretch 07041200:FireworkHike 10312000:HalloweenWalk 12250800:XmasStroll
+(S0) 01010000:NewYearRun 01011200:Walk 02010800:IndoorBike 02141800:ValentinesDance 03010700:MorningMila 03010800:Cycling 03010900:BreakfastWalk 03011200:Yoga 03011400:Swimming 03021200:Basketball 03031230:Rowing 03031830:Yoga 03040630:WarmupJog 03040715:SprintDrills 03050700:Hike 03050930:Dive 03061200:Recovery 03071200:Core 03081200:Pilates 03151200:SpringHike 03312359:LateNightGym 04010600:AprilFoolsJog 05011000:MayDayStretch 06010800:SummerSprints 07041200:FireworkHike 08010900:HeatWaveSwim 10312000:HalloweenWalk 11251400:TurkeyTrot 12250800:XmasStroll

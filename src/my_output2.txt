@@ -1,0 +1,35 @@
+AddActivity 03010800 Cycling
+AddActivity 03011100 Lift
+AddActivity 03011700 Basketball
+AddActivity 03020600 Stretch
+AddActivity 03020930 Swim
+AddActivity 03021100 CoolDown
+AddActivity 03031230 Rowing
+AddActivity 03031830 Yoga
+AddActivity 03040715 SprintDrills
+AddActivity 03040630 WarmupJog
+AddActivity 03050930 Dive
+GetActivity 03011100 Lift
+GetActivity 03040630 WarmupJog
+PrintSkipList
+(S4) empty
+(S3) 03031830:Yoga
+(S2) 03020600:Stretch 03031830:Yoga
+(S1) 03011100:Lift 03020600:Stretch 03021100:CoolDown 03031830:Yoga 03040630:WarmupJog
+(S0) 03010800:Cycling 03011100:Lift 03011700:Basketball 03020600:Stretch 03020930:Swim 03021100:CoolDown 03031230:Rowing 03031830:Yoga 03040630:WarmupJog 03040715:SprintDrills 03050930:Dive
+GetActivitiesBetweenTimes 03011300 03011800 03011700:Basketball
+GetActivitiesBetweenTimes 03040500 03040930 03040630:WarmupJog 03040715:SprintDrills
+GetActivitiesForOneDay 0305 03050930:Dive
+GetActivitiesForOneDay 0301 03010800:Cycling 03011100:Lift 03011700:Basketball
+AddActivity 03050700 Hike
+GetActivitiesForOneDay 0305 03050700:Hike 03050930:Dive
+GetActivitiesFromEarlierInTheDay 03031500 03031230:Rowing
+GetActivitiesFromEarlierInTheDay 03032200 03031230:Rowing 03031830:Yoga
+RemoveActivity 03020600 Stretch
+RemoveActivity 03031230 Rowing
+PrintSkipList
+(S4) empty
+(S3) 03031830:Yoga
+(S2) 03031830:Yoga 03050700:Hike
+(S1) 03011100:Lift 03021100:CoolDown 03031830:Yoga 03040630:WarmupJog 03050700:Hike
+(S0) 03010800:Cycling 03011100:Lift 03011700:Basketball 03020930:Swim 03021100:CoolDown 03031830:Yoga 03040630:WarmupJog 03040715:SprintDrills 03050700:Hike 03050930:Dive
