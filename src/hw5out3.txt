@@ -37,8 +37,9 @@ GetActivitiesForOneDay 0302 03021200:Basketball
 GetActivitiesFromEarlierInTheDay 02142000 02141800:ValentinesDance
 GetActivitiesFromEarlierInTheDay 03051200 03050700:Hike 03050930:Dive
 PrintSkipList
-(S4) 04010600:AprilFoolsJog
-(S3) 03151200:SpringHike 04010600:AprilFoolsJog 03031230:Rowing
-(S2) 03011200:Yoga 03151200:SpringHike 04010600:AprilFoolsJog 07041200:FireworkHike 03040630:WarmupJog 03031230:Rowing 03071200:Core
-(S1) 03011000:Running 03011200:Yoga 02010800:IndoorBike 03010900:BreakfastWalk 03151200:SpringHike 04010600:AprilFoolsJog 06010800:SummerSprints 07041200:FireworkHike 10312000:HalloweenWalk 12250800:XmasStroll 03050930:Dive 03040630:WarmupJog 03031230:Rowing 03021200:Basketball 03071200:Core
+(S5) empty
+(S4) 06010800:SummerSprints
+(S3) 02010800:IndoorBike 03040630:WarmupJog 06010800:SummerSprints
+(S2) 02010800:IndoorBike 03011400:Swimming 03021200:Basketball 03040630:WarmupJog 03151200:SpringHike 06010800:SummerSprints 11251400:TurkeyTrot
+(S1) 01010000:NewYearRun 02010800:IndoorBike 03010700:MorningMila 03011400:Swimming 03021200:Basketball 03031230:Rowing 03040630:WarmupJog 03050700:Hike 03071200:Core 03151200:SpringHike 04010600:AprilFoolsJog 06010800:SummerSprints 08010900:HeatWaveSwim 11251400:TurkeyTrot
 (S0) 01010000:NewYearRun 01011200:Walk 02010800:IndoorBike 02141800:ValentinesDance 03010700:MorningMila 03010800:Cycling 03010900:BreakfastWalk 03011200:Yoga 03011400:Swimming 03021200:Basketball 03031230:Rowing 03031830:Yoga 03040630:WarmupJog 03040715:SprintDrills 03050700:Hike 03050930:Dive 03061200:Recovery 03071200:Core 03081200:Pilates 03151200:SpringHike 03312359:LateNightGym 04010600:AprilFoolsJog 05011000:MayDayStretch 06010800:SummerSprints 07041200:FireworkHike 08010900:HeatWaveSwim 10312000:HalloweenWalk 11251400:TurkeyTrot 12250800:XmasStroll
