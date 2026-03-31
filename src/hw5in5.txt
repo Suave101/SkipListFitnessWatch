@@ -1,0 +1,46 @@
+AddActivity 04010010 Sleep
+AddActivity 04010600 WakeUp
+AddActivity 04010700 Breakfast
+AddActivity 04010830 Commute
+AddActivity 04010900 Work
+AddActivity 04011200 Meeting
+AddActivity 04011300 Lunch
+AddActivity 04011530 Work2
+AddActivity 04011800 Gym
+AddActivity 04011930 Dinner
+AddActivity 04012100 Relax
+AddActivity 04012300 Sleep2
+AddActivity 04010900 DuplicateWork
+AddActivity 04011800 DuplicateGym
+GetActivity 04010900
+GetActivity 04011000
+RemoveActivity 04012300
+RemoveActivity 04013000
+AddActivity 04012200 Reading
+AddActivity 04011600 CoffeeBreak
+GetActivitiesBetweenTimes 04010600 04012000
+GetActivitiesBetweenTimes 04020000 04030000
+GetActivitiesForOneDay 0401
+GetActivitiesFromEarlierInTheDay 04011545
+RemoveActivity 04010010
+RemoveActivity 04010600
+RemoveActivity 04010700
+GetActivitiesForOneDay 0401
+AddActivity 04010530 EarlyRun
+AddActivity 04010730 Snack
+AddActivity 04011100 Call
+GetActivitiesBetweenTimes 04010500 04011200
+RemoveActivity 04011530
+RemoveActivity 04011800
+GetActivitiesBetweenTimes 04011000 04012000
+GetActivity 04011800
+GetActivity 04011600
+AddActivity 04011800 NewGym
+AddActivity 04011830 Stretch
+GetActivitiesFromEarlierInTheDay 04011900
+PrintSkipList
+RemoveActivity 04010900
+RemoveActivity 04010830
+RemoveActivity 04010730
+GetActivitiesForOneDay 0401
+PrintSkipList

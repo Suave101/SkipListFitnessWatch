@@ -1,0 +1,69 @@
+AddActivity 04010010 Sleep
+AddActivity 04010600 WakeUp
+AddActivity 04010700 Breakfast
+AddActivity 04010830 Commute
+AddActivity 04010900 Work
+AddActivity 04011200 Meeting
+AddActivity 04011300 Lunch
+AddActivity 04011530 Work2
+AddActivity 04011800 Gym
+AddActivity 04011930 Dinner
+AddActivity 04012100 Relax
+AddActivity 04012300 Sleep2
+ExistingActivityError:Work
+ExistingActivityError:Gym
+GetActivity 04010900 Work
+GetActivity 04011000 none
+RemoveActivity 04012300 Sleep2
+NoActivityError
+AddActivity 04012200 Reading
+AddActivity 04011600 CoffeeBreak
+04010600:WakeUp 04010700:Breakfast 04010830:Commute 04010900:Work
+04011200:Meeting 04011300:Lunch 04011530:Work2 04011600:CoffeeBreak
+04011800:Gym 04011930:Dinner
+none
+04010010:Sleep 04010600:WakeUp 04010700:Breakfast 04010830:Commute
+04010900:Work 04011200:Meeting 04011300:Lunch 04011530:Work2
+04011600:CoffeeBreak 04011800:Gym 04011930:Dinner 04012100:Relax
+04012200:Reading
+04010010:Sleep 04010600:WakeUp 04010700:Breakfast 04010830:Commute
+04010900:Work 04011200:Meeting 04011300:Lunch
+RemoveActivity 04010010 Sleep
+RemoveActivity 04010600 WakeUp
+RemoveActivity 04010700 Breakfast
+04010830:Commute 04010900:Work 04011200:Meeting 04011300:Lunch
+04011530:Work2 04011600:CoffeeBreak 04011800:Gym 04011930:Dinner
+04012100:Relax 04012200:Reading
+AddActivity 04010530 EarlyRun
+AddActivity 04010730 Snack
+AddActivity 04011100 Call
+04010530:EarlyRun 04010730:Snack 04010830:Commute 04010900:Work
+04011100:Call 04011200:Meeting
+RemoveActivity 04011530 Work2
+RemoveActivity 04011800 Gym
+04011100:Call 04011200:Meeting 04011300:Lunch 04011600:CoffeeBreak
+04011930:Dinner
+GetActivity 04011800 none
+GetActivity 04011600 CoffeeBreak
+AddActivity 04011800 NewGym
+AddActivity 04011830 Stretch
+04010530:EarlyRun 04010730:Snack 04010830:Commute 04010900:Work
+04011100:Call 04011200:Meeting 04011300:Lunch 04011600:CoffeeBreak
+04011800:NewGym 04011830:Stretch
+PrintSkipList
+(S?) depends on FakeRandomHeight
+(S0) 04010530:EarlyRun 04010730:Snack 04010830:Commute 04010900:Work
+04011100:Call 04011200:Meeting 04011300:Lunch 04011600:CoffeeBreak
+04011800:NewGym 04011830:Stretch 04011930:Dinner 04012100:Relax
+04012200:Reading
+RemoveActivity 04010900 Work
+RemoveActivity 04010830 Commute
+RemoveActivity 04010730 Snack
+04010530:EarlyRun 04011100:Call 04011200:Meeting 04011300:Lunch
+04011600:CoffeeBreak 04011800:NewGym 04011830:Stretch 04011930:Dinner
+04012100:Relax 04012200:Reading
+PrintSkipList
+(S?) depends on FakeRandomHeight
+(S0) 04010530:EarlyRun 04011100:Call 04011200:Meeting 04011300:Lunch
+04011600:CoffeeBreak 04011800:NewGym 04011830:Stretch 04011930:Dinner
+04012100:Relax 04012200:Reading
