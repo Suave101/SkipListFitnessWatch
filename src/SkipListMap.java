@@ -146,7 +146,7 @@ public class SkipListMap {
         int start = Integer.parseInt(startTime);
         int end = Integer.parseInt(endTime);
 
-        // findNode gracefully finds the node <= startTime
+        // findNode finds the node <= startTime
         SkipListNode cur = findNode(start);
 
         // If the exact start time doesn't exist, shift forward to the next available time
@@ -310,7 +310,7 @@ public class SkipListMap {
             this.below = below;
         }
 
-        // Compare method to compare the times. If larger, pos. If smaller neg. Equal = 0
+        // Compare method to compare the times. If larger, positive. If smaller negative. Equal = 0
         public int compareTo(SkipListNode s2) {
             return this.intTime - s2.getIntTime();
         }
