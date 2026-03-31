@@ -1,0 +1,22 @@
+AddActivity 03250800 Yoga
+AddActivity 03250930 Breakfast
+AddActivity 03251200 Lunch
+AddActivity 03251400 Swimming
+AddActivity 03251800 Dinner
+AddActivity 03252000 Reading
+AddActivity 03260700 Running
+AddActivity 03261000 Coding
+AddActivity 03261300 Nap
+PrintSkipList
+GetActivity 03251200
+GetActivity 03251500
+AddActivity 03251200 Weights
+RemoveActivity 03251400
+RemoveActivity 03251500
+GetActivitiesBetweenTimes 03250900 03251900
+GetActivitiesBetweenTimes 03270000 03272359
+GetActivitiesForOneDay 0325
+GetActivitiesForOneDay 0327
+GetActivitiesFromEarlierInTheDay 03251500
+GetActivitiesFromEarlierInTheDay 03260600
+PrintSkipList

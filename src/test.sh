@@ -15,7 +15,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 2. Run tests
-for i in 1 2 3 4 5; do
+for i in 1 2 3 4 5 6; do
     echo "---------------------------"
     echo "Running Test Case $i..."
     echo "---------------------------"

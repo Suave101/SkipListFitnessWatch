@@ -1,0 +1,38 @@
+AddActivity 03250800 Yoga
+AddActivity 03250930 Breakfast
+AddActivity 03251200 Lunch
+AddActivity 03251400 Swimming
+AddActivity 03251800 Dinner
+AddActivity 03252000 Reading
+AddActivity 03260700 Running
+AddActivity 03261000 Coding
+AddActivity 03261300 Nap
+PrintSkipList
+(S4) empty
+(S3) 03261000:Coding
+(S2) 03251400:Swimming 03261000:Coding
+(S1) 03250930:Breakfast 03251400:Swimming 03252000:Reading 03261000:Coding
+(S0) 03250800:Yoga 03250930:Breakfast 03251200:Lunch 03251400:Swimming
+03251800:Dinner 03252000:Reading 03260700:Running 03261000:Coding
+03261300:Nap
+GetActivity 03251200 Lunch
+GetActivity 03251500 none
+AddActivity 03251200 Weights ExistingActivityError:Lunch
+RemoveActivity 03251400 Swimming
+RemoveActivity 03251500 NoActivityError
+GetActivitiesBetweenTimes 03250900 03251900 03250930:Breakfast
+03251200:Lunch 03251800:Dinner
+GetActivitiesBetweenTimes 03270000 03272359 none
+GetActivitiesForOneDay 0325 03250800:Yoga 03250930:Breakfast
+03251200:Lunch 03251800:Dinner 03252000:Reading
+GetActivitiesForOneDay 0327 none
+GetActivitiesFromEarlierInTheDay 03251500 03250800:Yoga 03250930:Breakfast
+03251200:Lunch
+GetActivitiesFromEarlierInTheDay 03260600 none
+PrintSkipList
+(S4) empty
+(S3) 03261000:Coding
+(S2) 03261000:Coding
+(S1) 03250930:Breakfast 03252000:Reading 03261000:Coding
+(S0) 03250800:Yoga 03250930:Breakfast 03251200:Lunch 03251800:Dinner
+03252000:Reading 03260700:Running 03261000:Coding 03261300:Nap
