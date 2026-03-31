@@ -76,8 +76,9 @@ public class HW5
      * Method that adds an activity by time and activity
      */
     public static void addActivity(String time, String activity, SkipListMap skipListMap) {
-        if (!skipListMap.put(time, activity)) {
-            System.out.println("AddActivity " + time + " " + activity + " ExistingActivityError:" + activity);
+        String output = skipListMap.put(time, activity);
+        if (output != null) {
+            System.out.println("AddActivity " + time + " " + activity + " ExistingActivityError:" + output);
         } else {
             System.out.println("AddActivity " + time + " " + activity);
         }
